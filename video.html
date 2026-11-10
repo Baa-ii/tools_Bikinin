@@ -1,0 +1,39 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prompt Video</title><style>
+:root{--bg:#f2f4f8;--fg:#15202e;--card:#fff;--mut:#5d6b7e;--ac:#4f46e5;--bd:#d9dee8;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1624;--fg:#e8edf6;--card:#182235;--mut:#93a1b8;--ac:#8b85ff;--bd:#2a3750}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
+nav{display:flex;gap:4px;overflow-x:auto;padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--card)}
+nav a{white-space:nowrap;padding:7px 13px;border-radius:8px;color:var(--mut);text-decoration:none;font-size:14px}
+nav a.on{background:var(--ac);color:var(--bg);font-weight:600}
+main{max-width:700px;margin:0 auto;padding:20px 14px 60px}
+h1{font-size:26px;margin:6px 0 4px;letter-spacing:-.01em}p.s{color:var(--mut);margin:0 0 14px}
+label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+textarea{min-height:84px}
+button{margin-top:18px;padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:var(--bg);font:600 15px system-ui;cursor:pointer}
+button.g{background:transparent;color:var(--ac);border:1px solid var(--bd);margin-top:10px;padding:6px 12px;font-size:13px}
+.r{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14px}
+.r b{display:block;margin-bottom:6px}.r div{white-space:pre-wrap}
+.box{display:flex;align-items:center;justify-content:center;min-height:150px;margin:0;padding:10px;border:2px dashed var(--bd);border-radius:8px;background:var(--card);color:var(--mut);font-weight:400;font-size:14px;text-align:center;cursor:pointer}.box:hover,.box:focus-within{border-color:var(--ac)}.box img{max-width:100%;max-height:320px;object-fit:contain;border-radius:6px}.vh{position:absolute;opacity:0;width:1px;height:1px}
+small{color:var(--mut)}
+</style></head><body><nav id="n"></nav><main><h1>Prompt Video</h1><p class="s">Buat prompt untuk satu klip video AI.</p><div id="f"></div><button id="go">Buat prompt</button><div id="o"></div></main>
+<script>
+const PG=[["index.html","Beranda"],["gambar.html","Prompt Gambar"],["video.html","Prompt Video"],["movie.html","Movie"],["unboxing.html","Unboxing"],["review.html","Review Produk"]];
+const cur="video.html";
+n.innerHTML=PG.map(p=>`<a href="${p[0]}" class="${p[0]==cur?'on':''}">${p[1]}</a>`).join("");
+const F=[{"id": "foto", "l": "Foto lampiran (opsional)", "t": "file"}, {"id": "adegan", "l": "Isi adegan (satu aksi saja)", "t": "area", "p": "Contoh: wanita membuka kotak paket di meja"}, {"id": "kamera", "l": "Gerakan kamera", "t": "sel", "o": ["diam", "zoom in pelan", "mengikuti dari belakang", "orbit mengelilingi subjek", "close-up tangan"]}, {"id": "gaya", "l": "Gaya", "t": "sel", "o": ["realistis", "sinematik", "santai ala vlog", "iklan produk"]}, {"id": "dur", "l": "Durasi", "t": "sel", "o": ["5", "8", "10"]}, {"id": "rasio", "l": "Rasio", "t": "sel", "o": ["9:16", "1:1", "16:9"]}, {"id": "suara", "l": "Suara/dialog (opsional)", "t": "txt", "p": ""}];
+const g=(x,d)=>x||d;
+const B=v=>[["Prompt video",`${g(v.adegan,'sebuah adegan')}. Kamera: ${v.kamera}. Gaya: ${v.gaya}. Durasi ${v.dur} detik, rasio ${v.rasio}. ${v.suara?'Suara/dialog: '+v.suara+'. ':''}Gerakan natural, tanpa teks di layar.`],["Tips","Satu klip, satu aksi. Kalau ada banyak aksi, pecah jadi beberapa klip."]];
+f.innerHTML=F.map(x=>{let c;
+if(x.t=="file")c=`<input type="file" id="${x.id}" accept="image/*" class="vh"><label class="box" for="${x.id}"><span id="${x.id}e">Klik di sini untuk upload foto (misalnya kaos atau produk)</span><img id="${x.id}p" alt="Foto lampiran" hidden></label><button type="button" class="g" id="${x.id}x" hidden>Hapus foto</button><small>Foto hanya tampil di sini. Lampirkan foto yang sama di tool AI saat generate.</small>`;
+else if(x.t=="sel")c=`<select id="${x.id}">${x.o.map(o=>`<option>${o}</option>`).join("")}</select>`;
+else if(x.t=="area")c=`<textarea id="${x.id}" placeholder="${x.p||''}"></textarea>`;
+else c=`<input id="${x.id}" placeholder="${x.p||''}">`;
+return `<label for="${x.id}">${x.l}</label>${c}`}).join("");
+F.filter(x=>x.t=="file").forEach(x=>{const i=document.getElementById(x.id),im=document.getElementById(x.id+"p"),e=document.getElementById(x.id+"e"),r=document.getElementById(x.id+"x");
+i.onchange=()=>{const fl=i.files[0];if(fl){im.src=URL.createObjectURL(fl);im.hidden=false;e.hidden=true;r.hidden=false}};
+r.onclick=()=>{i.value="";im.removeAttribute("src");im.hidden=true;e.hidden=false;r.hidden=true}});
+go.onclick=()=>{const v={};F.filter(x=>x.t!="file").forEach(x=>v[x.id]=document.getElementById(x.id).value.trim());
+o.innerHTML="";B(v).forEach(b=>{const d=document.createElement("div");d.className="r";const h=document.createElement("b");h.textContent=b[0];const t=document.createElement("div");t.textContent=b[1];const c=document.createElement("button");c.className="g";c.textContent="Salin";c.onclick=()=>{navigator.clipboard.writeText(b[1]).then(()=>{c.textContent="Tersalin";setTimeout(()=>c.textContent="Salin",1500)}).catch(()=>{c.textContent="Salin manual"})};d.append(h,t,c);o.append(d)})};
+</script></body></html>
