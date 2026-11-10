@@ -1,20 +1,12 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bikinin</title><style>
-:root{--bg:#f2f4f8;--fg:#15202e;--card:#fff;--mut:#5d6b7e;--ac:#4f46e5;--bd:#d9dee8;color-scheme:light dark}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1624;--fg:#e8edf6;--card:#182235;--mut:#93a1b8;--ac:#8b85ff;--bd:#2a3750}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
-nav{display:flex;gap:4px;overflow-x:auto;padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--card)}
-nav a{white-space:nowrap;padding:7px 13px;border-radius:8px;color:var(--mut);text-decoration:none;font-size:14px}
-nav a.on{background:var(--ac);color:var(--bg);font-weight:600}
-main{max-width:700px;margin:0 auto;padding:20px 14px 60px}
-h1{font-size:26px;margin:6px 0 4px;letter-spacing:-.01em}p.s{color:var(--mut);margin:0 0 14px}
-label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
-input,select,textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
-input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-textarea{min-height:84px}
-button{margin-top:18px;padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:var(--bg);font:600 15px system-ui;cursor:pointer}
-button.g{background:transparent;color:var(--ac);border:1px solid var(--bd);margin-top:10px;padding:6px 12px;font-size:13px}
-.r{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14px}
-.r b{display:block;margin-bottom:6px}.r div{white-space:pre-wrap}
-.box{display:flex;align-items:center;justify-content:center;min-height:150px;margin:0;padding:10px;border:2px dashed var(--bd);border-radius:8px;background:var(--card);color:var(--mut);font-weight:400;font-size:14px;text-align:center;cursor:pointer}.box:hover,.box:focus-within{border-color:var(--ac)}.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:8px}.gal:empty{display:none}.th{position:relative}.th img{width:100%;height:130px;object-fit:cover;border-radius:6px;border:1px solid var(--bd);display:block}.th button{position:absolute;top:4px;right:4px;margin:0;padding:0;width:26px;height:26px;border-radius:50%;background:var(--fg);color:var(--bg);font-size:15px;line-height:1}.box.sm{min-height:56px}.vh{position:absolute;opacity:0;width:1px;height:1px}
-small{color:var(--mut)}
-</style></head><body><nav id="n"></nav><main><h1>Studio Video AI</h1><p class="s">Pilih menu. Tiap menu membuat prompt untuk kamu tempel ke tool gambar/video AI.</p><style>.c a{display:block;background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:14px;margin-top:10px;color:var(--fg);text-decoration:none}.c b{display:block}.c span{color:var(--mut);font-size:14px}</style><div class="c"><a href="gambar.html"><b>Prompt Gambar</b><span>Ubah ide atau foto referensi jadi prompt gambar siap pakai.</span></a><a href="video.html"><b>Prompt Video</b><span>Buat prompt untuk satu klip video AI.</span></a><a href="movie.html"><b>Movie</b><span>Pecah cerita jadi adegan, lengkap dengan prompt gambar dan video per adegan.</span></a><a href="unboxing.html"><b>Unboxing</b><span>Susun 5 adegan video unboxing beserta narasi.</span></a><a href="review.html"><b>Review Produk</b><span>Skincare, fashion, atau barang apa pun: buat alur review 6 adegan dengan narasi.</span></a></div></main><script>const PG=[["index.html","Beranda"],["gambar.html","Prompt Gambar"],["video.html","Prompt Video"],["movie.html","Movie"],["unboxing.html","Unboxing"],["review.html","Review Produk"]];n.innerHTML=PG.map(p=>`<a href="${p[0]}" class="${p[0]=="index.html"?"on":""}">${p[1]}</a>`).join("")</script></body></html>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bikinin</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet"><style>
+:root{--bg:#EDF0EA;--fg:#1E2B24;--card:#fff;--mut:#46564D;--ac:#2F6B57;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#121A16;--fg:#E6EDE8;--card:#1B2620;--mut:#A3B2A9;--ac:#7FC4A6}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 Manrope,system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:72px 20px 80px}
+h1{margin:0;font-size:clamp(44px,9vw,64px);font-weight:800;letter-spacing:-.03em}
+p{margin:12px 0 0;font-size:18px;color:var(--mut)}
+.g{margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.g a{display:block;padding:28px;background:var(--card);border-radius:20px;color:var(--fg);text-decoration:none}
+.g a:hover,.g a:focus-visible{color:var(--ac)}.g a:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.g b{display:block;font-size:20px}.g span{display:block;margin-top:8px;font-size:15px;opacity:.75}
+</style></head><body><main><h1>Bikinin</h1><p>Prompt gambar dan video AI, siap tempel.</p><div class="g"><a href="gambar.html"><b>Prompt Gambar</b><span>Ubah ide atau foto referensi jadi prompt gambar siap pakai.</span></a><a href="video.html"><b>Prompt Video</b><span>Buat prompt untuk satu klip video AI.</span></a><a href="movie.html"><b>Movie</b><span>Pecah cerita jadi adegan, lengkap dengan prompt gambar dan video per adegan.</span></a><a href="unboxing.html"><b>Unboxing</b><span>Susun 5 adegan video unboxing beserta narasi.</span></a><a href="review.html"><b>Review Produk</b><span>Skincare, fashion, atau barang apa pun: buat alur review 6 adegan dengan narasi.</span></a></div></main></body></html>

@@ -1,27 +1,22 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Movie</title><style>
-:root{--bg:#f2f4f8;--fg:#15202e;--card:#fff;--mut:#5d6b7e;--ac:#4f46e5;--bd:#d9dee8;color-scheme:light dark}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1624;--fg:#e8edf6;--card:#182235;--mut:#93a1b8;--ac:#8b85ff;--bd:#2a3750}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif}
-nav{display:flex;gap:4px;overflow-x:auto;padding:10px 14px;border-bottom:1px solid var(--bd);background:var(--card)}
-nav a{white-space:nowrap;padding:7px 13px;border-radius:8px;color:var(--mut);text-decoration:none;font-size:14px}
-nav a.on{background:var(--ac);color:var(--bg);font-weight:600}
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Movie | Bikinin</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap" rel="stylesheet"><style>
+:root{--bg:#EDF0EA;--fg:#1E2B24;--card:#fff;--mut:#46564D;--ac:#2F6B57;--bd:#D3DAD0;color-scheme:light dark}
+@media(prefers-color-scheme:dark){:root{--bg:#121A16;--fg:#E6EDE8;--card:#1B2620;--mut:#A3B2A9;--ac:#7FC4A6;--bd:#2B3A32}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 Manrope,system-ui,sans-serif}
+nav{max-width:700px;margin:0 auto;padding:14px 14px 0}nav a{display:inline-block;padding:8px 0;color:var(--mut);text-decoration:none;font-weight:700;font-size:15px}nav a:hover,.bk:hover{color:var(--ac)}
 main{max-width:700px;margin:0 auto;padding:20px 14px 60px}
-h1{font-size:26px;margin:6px 0 4px;letter-spacing:-.01em}p.s{color:var(--mut);margin:0 0 14px}
+h1{font-size:34px;font-weight:800;margin:10px 0 4px;letter-spacing:-.03em}p.s{color:var(--mut);margin:0 0 14px}
 label{display:block;font-weight:600;font-size:14px;margin:14px 0 5px}
 input,select,textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
 input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 textarea{min-height:84px}
-button{margin-top:18px;padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:var(--bg);font:600 15px system-ui;cursor:pointer}
+button{margin-top:18px;padding:12px 20px;border:0;border-radius:8px;background:var(--ac);color:var(--bg);font:700 15px Manrope,system-ui,sans-serif;cursor:pointer}
 button.g{background:transparent;color:var(--ac);border:1px solid var(--bd);margin-top:10px;padding:6px 12px;font-size:13px}
-.r{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14px}
+.r{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px 14px;margin-top:14px;font-size:14px}
 .r b{display:block;margin-bottom:6px}.r div{white-space:pre-wrap}
 .box{display:flex;align-items:center;justify-content:center;min-height:150px;margin:0;padding:10px;border:2px dashed var(--bd);border-radius:8px;background:var(--card);color:var(--mut);font-weight:400;font-size:14px;text-align:center;cursor:pointer}.box:hover,.box:focus-within{border-color:var(--ac)}.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:8px}.gal:empty{display:none}.th{position:relative}.th img{width:100%;height:130px;object-fit:cover;border-radius:6px;border:1px solid var(--bd);display:block}.th button{position:absolute;top:4px;right:4px;margin:0;padding:0;width:26px;height:26px;border-radius:50%;background:var(--fg);color:var(--bg);font-size:15px;line-height:1}.box.sm{min-height:56px}.vh{position:absolute;opacity:0;width:1px;height:1px}
-small{color:var(--mut)}
-</style></head><body><nav id="n"></nav><main><h1>Movie</h1><p class="s">Pecah cerita jadi adegan, lengkap dengan prompt gambar dan video per adegan.</p><div id="f"></div><button id="go">Buat prompt</button><div id="o"></div></main>
+small{color:var(--mut)}.bk{display:inline-block;margin-top:28px;font-weight:700;color:var(--ac);text-decoration:none}
+</style></head><body><nav><a href="index.html">← Bikinin</a></nav><main><h1>Movie</h1><p class="s">Pecah cerita jadi adegan, lengkap dengan prompt gambar dan video per adegan.</p><div id="f"></div><button id="go">Buat prompt</button><div id="o"></div><a class="bk" href="index.html">← Kembali ke beranda</a></main>
 <script>
-const PG=[["index.html","Beranda"],["gambar.html","Prompt Gambar"],["video.html","Prompt Video"],["movie.html","Movie"],["unboxing.html","Unboxing"],["review.html","Review Produk"]];
-const cur="movie.html";
-n.innerHTML=PG.map(p=>`<a href="${p[0]}" class="${p[0]==cur?'on':''}">${p[1]}</a>`).join("");
 const F=[{"id": "foto", "l": "Foto lampiran (opsional)", "t": "file"}, {"id": "premis", "l": "Premis cerita", "t": "area", "p": "Contoh: robot kecil mencari pemilik yang hilang"}, {"id": "genre", "l": "Genre", "t": "sel", "o": ["drama", "komedi", "horor ringan", "petualangan", "fantasi"]}, {"id": "kar", "l": "Karakter (tulis detail, dipakai di semua adegan)", "t": "area", "p": "Contoh: robot kotak biru, satu mata bulat, antena kecil"}, {"id": "gaya", "l": "Gaya visual", "t": "sel", "o": ["sinematik", "animasi 3D", "anime", "realistis"]}, {"id": "n", "l": "Jumlah adegan", "t": "sel", "o": ["3", "4", "5", "6", "8"]}];
 const g=(x,d)=>x||d;
 const B=v=>{const A=["Pembukaan: kenalkan suasana dan tokoh","Pengenalan masalah","Usaha pertama","Rintangan membesar","Puncak ketegangan","Twist","Penyelesaian","Penutup"],n=+v.n,k=g(v.kar,'tokoh utama'),o=[["Kunci karakter (tempel di setiap prompt)",`Karakter tetap sama di semua adegan: ${k}.`]];for(let i=0;i<n;i++){const a=A[Math.round(i*7/(n-1))];o.push([`Adegan ${i+1}: ${a}`,`Prompt gambar:\n${k}, ${a.toLowerCase()} dalam cerita "${g(v.premis,'cerita pendek')}", genre ${v.genre}, gaya ${v.gaya}, rasio 9:16.\n\nPrompt video:\n${k}, ${a.toLowerCase()}. Kamera sinematik bergerak pelan, 8 detik, gaya ${v.gaya}, gerakan natural.`])}return o};
