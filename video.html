@@ -15,7 +15,7 @@ button{margin-top:18px;padding:12px 20px;border:0;border-radius:8px;background:v
 button.g{background:transparent;color:var(--ac);border:1px solid var(--bd);margin-top:10px;padding:6px 12px;font-size:13px}
 .r{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:8px;padding:12px 14px;margin-top:14px;font-size:14px}
 .r b{display:block;margin-bottom:6px}.r div{white-space:pre-wrap}
-.box{display:flex;align-items:center;justify-content:center;min-height:150px;margin:0;padding:10px;border:2px dashed var(--bd);border-radius:8px;background:var(--card);color:var(--mut);font-weight:400;font-size:14px;text-align:center;cursor:pointer}.box:hover,.box:focus-within{border-color:var(--ac)}.box img{max-width:100%;max-height:320px;object-fit:contain;border-radius:6px}.vh{position:absolute;opacity:0;width:1px;height:1px}
+.box{display:flex;align-items:center;justify-content:center;min-height:150px;margin:0;padding:10px;border:2px dashed var(--bd);border-radius:8px;background:var(--card);color:var(--mut);font-weight:400;font-size:14px;text-align:center;cursor:pointer}.box:hover,.box:focus-within{border-color:var(--ac)}.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-bottom:8px}.gal:empty{display:none}.th{position:relative}.th img{width:100%;height:130px;object-fit:cover;border-radius:6px;border:1px solid var(--bd);display:block}.th button{position:absolute;top:4px;right:4px;margin:0;padding:0;width:26px;height:26px;border-radius:50%;background:var(--fg);color:var(--bg);font-size:15px;line-height:1}.box.sm{min-height:56px}.vh{position:absolute;opacity:0;width:1px;height:1px}
 small{color:var(--mut)}
 </style></head><body><nav id="n"></nav><main><h1>Prompt Video</h1><p class="s">Buat prompt untuk satu klip video AI.</p><div id="f"></div><button id="go">Buat prompt</button><div id="o"></div></main>
 <script>
@@ -26,14 +26,15 @@ const F=[{"id": "foto", "l": "Foto lampiran (opsional)", "t": "file"}, {"id": "a
 const g=(x,d)=>x||d;
 const B=v=>[["Prompt video",`${g(v.adegan,'sebuah adegan')}. Kamera: ${v.kamera}. Gaya: ${v.gaya}. Durasi ${v.dur} detik, rasio ${v.rasio}. ${v.suara?'Suara/dialog: '+v.suara+'. ':''}Gerakan natural, tanpa teks di layar.`],["Tips","Satu klip, satu aksi. Kalau ada banyak aksi, pecah jadi beberapa klip."]];
 f.innerHTML=F.map(x=>{let c;
-if(x.t=="file")c=`<input type="file" id="${x.id}" accept="image/*" class="vh"><label class="box" for="${x.id}"><span id="${x.id}e">Klik di sini untuk upload foto (misalnya kaos atau produk)</span><img id="${x.id}p" alt="Foto lampiran" hidden></label><button type="button" class="g" id="${x.id}x" hidden>Hapus foto</button><small>Foto hanya tampil di sini. Lampirkan foto yang sama di tool AI saat generate.</small>`;
+if(x.t=="file")c=`<input type="file" id="${x.id}" accept="image/*" multiple class="vh"><div class="gal" id="${x.id}g"></div><label class="box" for="${x.id}" id="${x.id}b"></label><small>Foto hanya tampil di sini. Lampirkan foto yang sama di tool AI saat generate.</small>`;
 else if(x.t=="sel")c=`<select id="${x.id}">${x.o.map(o=>`<option>${o}</option>`).join("")}</select>`;
 else if(x.t=="area")c=`<textarea id="${x.id}" placeholder="${x.p||''}"></textarea>`;
 else c=`<input id="${x.id}" placeholder="${x.p||''}">`;
 return `<label for="${x.id}">${x.l}</label>${c}`}).join("");
-F.filter(x=>x.t=="file").forEach(x=>{const i=document.getElementById(x.id),im=document.getElementById(x.id+"p"),e=document.getElementById(x.id+"e"),r=document.getElementById(x.id+"x");
-i.onchange=()=>{const fl=i.files[0];if(fl){im.src=URL.createObjectURL(fl);im.hidden=false;e.hidden=true;r.hidden=false}};
-r.onclick=()=>{i.value="";im.removeAttribute("src");im.hidden=true;e.hidden=false;r.hidden=true}});
+F.filter(x=>x.t=="file").forEach(x=>{const M=5,L=[],i=document.getElementById(x.id),gl=document.getElementById(x.id+"g"),bx=document.getElementById(x.id+"b");
+const draw=()=>{gl.innerHTML="";L.forEach((u,k)=>{const d=document.createElement("div");d.className="th";const im=document.createElement("img");im.src=u;im.alt="Foto "+(k+1);const r=document.createElement("button");r.type="button";r.textContent="×";r.setAttribute("aria-label","Hapus foto "+(k+1));r.onclick=()=>{URL.revokeObjectURL(u);L.splice(k,1);draw()};d.append(im,r);gl.append(d)});
+bx.hidden=L.length>=M;bx.className=L.length?"box sm":"box";bx.textContent=L.length?`+ Tambah foto (${L.length}/${M})`:`Klik di sini untuk upload foto, misalnya kaos atau produk. Bisa lebih dari satu (maks ${M}).`};
+i.onchange=()=>{[...i.files].forEach(f=>{if(L.length<M)L.push(URL.createObjectURL(f))});i.value="";draw()};draw()});
 go.onclick=()=>{const v={};F.filter(x=>x.t!="file").forEach(x=>v[x.id]=document.getElementById(x.id).value.trim());
 o.innerHTML="";B(v).forEach(b=>{const d=document.createElement("div");d.className="r";const h=document.createElement("b");h.textContent=b[0];const t=document.createElement("div");t.textContent=b[1];const c=document.createElement("button");c.className="g";c.textContent="Salin";c.onclick=()=>{navigator.clipboard.writeText(b[1]).then(()=>{c.textContent="Tersalin";setTimeout(()=>c.textContent="Salin",1500)}).catch(()=>{c.textContent="Salin manual"})};d.append(h,t,c);o.append(d)})};
 </script></body></html>
